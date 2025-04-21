@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 const userRouter = require(`./routes/user-otp`);
 app.use("/api/users", userRouter);
 
-app.listen(5173);
+app.listen(8080);
 
 //getip
 const PORT = 8080;
