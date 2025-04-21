@@ -1,8 +1,7 @@
 //controllers
-
-async function getUserHtmlForm(req,res) {
-
-    res.sendFile(path.join(__dirname, `../views/form.html`));
+const path = require("path");
+async function getUserHtmlForm(req, res) {
+  res.sendFile(path.join(__dirname, `../views/form.html`));
 }
 
-module.exports={getUserHtmlForm};
+module.exports = { getUserHtmlForm };
