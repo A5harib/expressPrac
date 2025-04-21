@@ -1,10 +1,10 @@
+//router config
 const express = require(`express`);
 const router = express.Router();
 const path = require(`path`);
+const{getUserHtmlForm }=require('../controllers/UserController,js')
 
-router.get(`/new`, (req, res) => {
-  res.sendFile(path.join(__dirname, `../views/form.html`));
-});
+router.get(`/new`, getUserHtmlForm)
 
 router.post("/", (req, res) => {
   const { name, email, password } = req.body;
@@ -36,14 +36,14 @@ router.get(`/:name/:email/:password`, (req, res) => {
   `);
 });
 
-const users = [
-  { id: 1, name: `John` },
-  { id: 2, name: `Jane` },
-  { id: 3, name: `Doe` },
-];
-router.param(`id`, (req, res, next, id) => {
-  req.user = users[id];
+// const users = [
+//   { id: 1, name: `John` },
+//   { id: 2, name: `Jane` },
+//   { id: 3, name: `Doe` },
+// ];
+// router.param(`id`, (req, res, next, id) => {
+//   req.user = users[id];
 
-  next();
-});
+//   next();
+// });
 module.exports = router;
