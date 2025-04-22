@@ -21,17 +21,6 @@ app.use("/api/users", userRouter);
 
 app.listen(5173);
 
-// app.set(`view engine`, `ejs`);
-
-// app.use(express.json());
-
-// DB Connection
-// const {db_connection} = require('./config/database.js');
-// db_connection();
-
-// //User Model Import
-// const {UsersModel} = require('./models/db.js');
-
 
 
 //getip
