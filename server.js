@@ -6,6 +6,21 @@ const path = require(`path`);
 
 //middleware
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+//dbConnect
+const { db_connection } = require("./config/database");
+db_connection();
+
+//basic stuff for 5173
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, `./views/index.html`));
+});
+const userRouter = require(`./routes/user-otp`);
+app.use("/api/users", userRouter);
+
+app.listen(5173);
+
 // app.set(`view engine`, `ejs`);
 
 // app.use(express.json());
@@ -17,15 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 // //User Model Import
 // const {UsersModel} = require('./models/db.js');
 
-//basic stuff for 5173
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, `./views/index.html`));
-});
 
-const userRouter = require(`./routes/user-otp`);
-app.use("/api/users", userRouter);
-
-app.listen(8080);
 
 //getip
 const PORT = 8080;
@@ -57,5 +64,5 @@ const httpServer = http.createServer((req, res) => {
 //checkip
 const HostIp = getLocalIp();
 httpServer.listen(PORT, HostIp, () => {
-  console.log(`HTTP ${HostIp}:${PORT}`);
+  console.log(`running at: ${HostIp}:${PORT}`);
 });

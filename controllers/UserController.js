@@ -1,7 +1,16 @@
+//usermodel
+const { UsersModel } = require("../models/Users");
+
 //controllers
-const path = require("path");
-async function getUserHtmlForm(req, res) {
-  res.sendFile(path.join(__dirname, `../views/form.html`));
+
+async function createUser(req, res) {
+  try {
+    const user = new UsersModel(req.body);
+    await user.save();
+    res.status(201).json({ message: "User created successfully!" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 }
 
-module.exports = { getUserHtmlForm };
+module.exports = { createUser };
