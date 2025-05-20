@@ -5,7 +5,11 @@ const os = require("os");
 const app = express();
 const path = require(`path`);
 
+const { hasher } = require("./middleware/hashing.js");
+const { event_logger } = require("./middleware/logger.js");
+hasher("Asharib");
 //middleware
+app.use(event_logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -20,37 +24,9 @@ app.get("/", (req, res) => {
 const userRouter = require(`./routes/user-otp`);
 app.use("/api/users", userRouter);
 
-app.listen(5173);
+app.listen(5173, () => {
+  console.log("http://10.9.5.103:5173");
+});
 
-// //getip
-// const PORT = 8080;
-// const getLocalIp = () => {
-//   const interfaces = os.networkInterfaces();
-//   for (const name of Object.keys(interfaces)) {
-//     for (const net of interfaces[name]) {
-//       if (net.family === "IPv4" && !net.internal) {
-//         return net.address;
-//       }
-//     }
-//   }
-//   return "127.0.0.1";
-// };
-
-// //send data
-// const httpServer = http.createServer((req, res) => {
-//   const ip = req.socket.remoteAddress;
-//   const now = new Date().toLocaleString();
-//   res.end(`
-//     <h1>HTTP Server Response</h1>
-//     <p><strong>Your Name:</strong> John Doe</p>
-//     <p><strong>Roll Number:</strong> 12345</p>
-//     <p><strong>Date/Time:</strong> ${now}</p>
-//     <p><strong>Your IP:</strong> ${ip}</p>
-//   `);
-// });
-
-// //checkip
-// const HostIp = getLocalIp();
-// httpServer.listen(PORT, HostIp, () => {
-//   console.log(`running at: ${HostIp}:${PORT}`);
-// });
+//git config
+//git config --global user.name "Asharib"

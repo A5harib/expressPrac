@@ -4,6 +4,7 @@ const router = express.Router();
 const { createUser } = require("../controllers/UserController");
 const { UsersModel } = require("../models/Users");
 const path = require("path");
+const { hasher } = require("../middleware/hashing");
 //createUser
 router.get("/register/new", (req, res) => {
   res.sendFile(path.join(__dirname, "../views/form.html"));
@@ -40,6 +41,7 @@ router.put("/:username/role", async (req, res) => {
 router.get("/list", async (req, res) => {
   try {
     const users = await UsersModel.find();
+
     let html = `
       <!DOCTYPE html>
       <html lang="en">
@@ -77,14 +79,18 @@ router.get("/list", async (req, res) => {
             </tr>
           </thead>
           <tbody>
-            ${users.map(user => `
+            ${users
+              .map(
+                (user) => `
               <tr>
                 <td>${user.name}</td>
                 <td>${user.email}</td>
                 <td>${user.username}</td>
                 <td>${user.role}</td>
               </tr>
-            `).join('')}
+            `
+              )
+              .join("")}
           </tbody>
         </table>
       </body>
